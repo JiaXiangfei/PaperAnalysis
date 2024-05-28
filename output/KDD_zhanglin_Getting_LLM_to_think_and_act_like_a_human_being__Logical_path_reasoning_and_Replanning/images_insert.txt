@@ -1,0 +1,103 @@
+
+ABSTRACT
+Large Language Models (LLMs) have a vast capacity for thinking and reasoning and can interact with the real world as agents, but they are segmented and lack integrated systems for validating thoughts and actions like humans. This limitation often results in LLMs falling into the trap of "Local Optima" in task performance. To address this issue, we introduce a Replanning mechanism for LLM-based agents that dynamically integrates feedback from actions and implicit information which not available in an initial thinking and reasoning framework, forming a bridge between the thinking and acting of LLMs. Compared to other agent methods, experiments conducted on real-life ticket booking websites such as Ctrip and Booking show that our method is more robust in executing clear instructions, capable of successfully completing more steps, and achieving a higher success rate in practical tasks such as ticket booking. especially in challenging tasks that require interactive thinking and action for LLMs.
+
+1INTRODUCTION
+Modified text:
+The introduction section of the academic paper sets the stage for the research by highlighting the significance of Large Language Models (LLMs) in the Fourth Industrial Revolution. It emphasizes the interactive nature of human thought and action, where planning and action guide and correct each other, integrating newly acquired information with implicit information for effective decision-making.
+
+The paper identifies a gap in existing agent methods, which fail to integrate the behavior of LLMs into a unified process of reasoning and action. 
+
+This limitation hinders LLMs from rethinking based on global information with implicit information, especially when they encounter errors. The authors propose a novel Replanning mechanism for LLM agents to address this issue, using the real-world scenario of online ticket booking as an example.
+
+The research aims to endow LLM agents with human-like cognitive processes and dynamic interactive capabilities by introducing three innovative mechanisms: implicit reasoning based on logical path propagation
+, 
+a Replanning mechanism based on action feedback
+, 
+and a Reaction mechanism based on Replanning.
+ 
+These mechanisms aim to enable LLM agents to construct a mind map integrating explicit and implicit information, adapt to changing demands and complex environments, and refine more general action strategies.
+
+The paper hopes to achieve a significant advancement in the field of AI by enhancing the cognitive processes and interactive capabilities of LLM-based agents. The proposed Replanning mechanism
+, 
+combined with implicit reasoning and Reaction, is expected to enable LLMs to perform complex tasks more effectively, improving their adaptability and generalization in real-world scenarios.
+2METHOD
+Modified text:
+The paper presents a novel framework model designed to enhance the cognitive processes and interactive capabilities of Large Language Model (LLM)-based agents. The model is primarily driven by three innovative components: logic path reasoning based on Knowledge Graphs (KG), a single action process incorporating environmental feedback and skill management, and task chain management for implementing Replanning and Reaction.
+
+The logic path reasoning component leverages KG to capture implicit information and follows a logical path involving named entity recognition, path propagation, and mindmap generation. This approach transforms sparse, document-based knowledge repositories into a more effective knowledge graph-based reasoning mechanism, closely resembling human cognitive processes.
+
+The single action process is designed to be manageable, generalizable, and adjustable throughout the planning process. It incorporates environmental awareness, skill library management, and an error handling mechanism based on environmental feedback. This dynamic skill management system enables LLMs to interact with real-time web environments and execute tasks more effectively.
+
+The task chain management component addresses the shortcomings of existing research by enabling Replanning and Reaction strategies. It uses a vector database to store and merge different task chains based on vector similarity, creating a comprehensive mindmap that dynamically integrates and manages actions triggered in the past. This approach not only reduces the likelihood of random errors in complex tasks but also significantly reduces the time and token consumption required for LLM reasoning.
+
+In summary, the proposed framework model addresses the limitations of existing research by integrating implicit reasoning, Replanning, and Reaction mechanisms. These innovations enable LLM-based agents to perform complex tasks more effectively, improving their adaptability and generalization in real-world scenarios.
+
+
+3EXPERIMENTS
+Modified text:
+In the "Experiments" section of the academic paper, the authors aim to address three key questions through their experimental design. They evaluate the effectiveness of their proposed Replanning mechanism for Large Language Model (LLM)-based agents in real-world ticket-booking scenarios. The experiments are structured to test the performance of the proposed method against baseline methods, its ability to handle complex tasks with unclear instructions, and the impact of different design choices on the system's performance.
+
+<7>
+<8>
+
+The experimental setup involves using OpenAI's APIs for text completion and embedding, with a collection of 812 user instructions divided into different sets to simulate various interaction needs on ticket booking websites. The authors selected and adapted representative algorithms as benchmarks to ensure a fair comparison.
+
+The evaluation metrics chosen are the task success rate and the average number of successful steps taken by the agents under different instruction sets. The results indicate that the proposed method outperforms the baseline methods, achieving higher success rates and completing more steps successfully.
+
+Ablation studies are conducted to analyze the impact of key components like Replanning, logical path reasoning, and Reaction. The findings emphasize the importance of the Replanning mechanism in correcting and resuming task chains, the effectiveness of logical path reasoning in providing implicit information, and the benefits of the Reaction mechanism in reusing successful actions and reducing API calls.
+
+
+
+
+
+
+
+
+Overall, the experiments demonstrate the robustness and adaptability of the proposed method, showcasing its potential to enhance the cognitive processes and interactive capabilities of LLM-based agents in real-world applications.
+4RELATEDWORK
+Modified text:
+[Related Work]
+
+Existing research on Large Language Models (LLMs) can be divided into several categories, each with its own strengths and limitations.
+
+1. Transformer-based Architectures: Early LLMs relied on transformer architecture models like BERT and GPT, which were effective in handling semantic representation and language understanding tasks. However, these models lacked the ability to perform interactive thinking and action.
+
+2. Knowledge Storage: Some approaches focused on developing storage modules to store knowledge in various data structures, enabling LLMs to retrieve available knowledge and generate more robust plans. However, these methods often struggled with integrating implicit information and common sense knowledge.
+
+3. Action-level Skills: Other research attempted to provide LLMs with specific skills and tool manipulation capabilities, allowing them to influence and shape the environment. While this improved the agents' ability to perform actions, it still lacked a comprehensive approach to integrating feedback and refining plans.
+
+4. Agent-based Reasoning: Some methods focused on agent-generated plans and reasoning-based approaches. However, these often lacked awareness of real-world exploration and implicit information, leading to the formulation of unachievable plans.
+
+<1>
+
+To address these shortcomings, the proposed method in this paper introduces three innovative mechanisms: implicit reasoning based on logical path propagation, a Replanning mechanism based on action feedback, and a Reaction mechanism based on Replanning. These mechanisms enable LLMs to construct a mind map integrating explicit and implicit information, adapt to changing demands and complex environments, and refine more general action strategies.
+
+<2>
+
+By transforming the thought-driven action agent paradigm into a dynamic interactive process, the proposed method allows thought to guide action, action to generate new knowledge, and new knowledge to integrate implicit knowledge, ultimately guiding further reasoning and planning. This novel approach enhances the cognitive processes and interactive capabilities of LLM-based agents, improving their adaptability and generalization in real-world scenarios.
+
+<3>
+<4>
+<5>
+<6>
+
+!All the given text ends here!
+5CONCLUSION
+### Conclusion Summary
+
+The paper presents a novel approach to enhancing the cognitive processes and interactive capabilities of Large Language Model (LLM)-based agents through a Replanning mechanism. The proposed method integrates three innovative mechanisms: implicit reasoning based on logical path propagation, a Replanning mechanism based on action feedback, and a Reaction mechanism based on Replanning. These mechanisms enable LLMs to construct a mind map integrating explicit and implicit information, adapt to changing demands and complex environments, and refine more general action strategies.
+
+The evaluation using real-life ticket booking websites demonstrates the robustness of the proposed method in executing clear instructions, successfully completing more steps, and achieving a higher success rate in practical tasks such as ticket booking. Ablation studies further highlight the importance of the Replanning mechanism, the effectiveness of logical path reasoning, and the benefits of the Reaction mechanism in reusing successful actions and reducing the number of API calls required.
+
+### Significance and Future Research Directions
+
+The significance of this research lies in its potential to improve the adaptability and generalization of LLM-based agents in real-world scenarios. By enhancing their reasoning and action capabilities through the proposed Replanning mechanism, LLMs can perform complex tasks more effectively, avoiding local optima and improving performance.
+
+Future research directions could include further exploration of the integration between implicit reasoning and explicit action strategies, as well as the development of more sophisticated Replanning and Reaction mechanisms. Additionally, expanding the application of these mechanisms to other domains beyond ticket booking, such as automated robot control and autonomous gaming, could provide valuable insights into the generalizability and scalability of the proposed approach.
+Concept
+Replanning Mechanism for LLM-based Agents: This is a novel approach that allows Large Language Models (LLMs) to dynamically integrate feedback from actions and implicit information not initially available, thereby bridging the gap between thinking and acting in LLMs and enhancing their task performance. 
+
+Local Optima in Task Performance: This refers to the limitation of LLMs where they get stuck in suboptimal solutions during task execution, a problem that the proposed Replanning mechanism aims to address.
+
+Interactive Thinking and Action: This is a complex task requirement that LLMs often struggle with, and which the Replanning mechanism is designed to improve, making LLMs more robust and successful in practical tasks.

@@ -1,0 +1,52 @@
+{
+    "1": {
+        "description": [
+            "shows attention scores of one head in \ufb01ne-tunedBERT. We observe that the attention score matrix is quitedense, although only one of twelve heads is plotted. It posesa huge burden on us to understand how words interact witheach other within Transformer. Moreover, even if an atten-tion score is large, it does not mean the pair of words is im-portant to model decisions. In contrast, we aim at attributingmodel decisions to self-attention relations, which tends toassign higher scores if the interaction contributes more tothe \ufb01nal prediction.",
+            "Attention score (left) and attribution score (right)of a single head in BERT. The color is darker for largervalues. The model prediction for the sentence from MNLIdataset is contradiction. ATTATTR tends to identifymore sparse word interactions that contribute to the \ufb01nalmodel decision.",
+            "is an example about the attention score mapand the attribution score map of a single head in \ufb01ne-tunedBERT. We demonstrate that larger attention scores do notmean more contribution to the \ufb01nal prediction. The atten-tion scores between the [SEP] token and other tokens arerelatively large, but they obtain little attribution scores. Theprediction of the contradiction class attributes most tothe connections between \u201cdon\u2019t\u201d in the \ufb01rst segment and \u201cIknow\u201d in the second segment, which is more explainable."
+        ],
+        "correlation": []
+    },
+    "2": {
+        "description": [
+            "we ob-serve that pruning heads with attributions scores conducesmore salient changes on the performance. Pruning only twoheads within every layer with the top-2 attribution scores cancause an extreme decrease in the model accuracy. In con-trast, retaining them helps the model to achieve nearly 97%accuracy. Even if only two heads are retained in each layer,the model can still have a strong performance. Compared",
+            "Effectiveness analysis of ATTATTR. The blue andred lines represent pruning attention heads according to at-tribution scores, and attention scores, respectively. The solidlines mean the attention heads with the smallest values arepruned \ufb01rst, while the dash lines mean the largest values arepruned \ufb01rst. The results show that ATTATTR better indicatesthe importance of attention heads."
+        ],
+        "correlation": []
+    },
+    "3": {
+        "description": [
+            "Evaluation accuracy as a function of head prun-ing proportion. The attention heads are pruned according tothe accuracy difference (baseline; dash yellow), the Taylorexpansion method (Michel, Levy, and Neubig 2019; solidred), and ATTATTR (this work; solid blue).",
+            "describesthe evaluation results of head pruning. The solid red linesrepresent pruning heads based on our method ATTATTR. Weobserve that pruning head with attribution score is much bet-ter than the baseline of accuracy difference."
+        ],
+        "correlation": []
+    },
+    "4": {
+        "description": [
+            "Correlation of attribution scores of different atten-tion heads between datasets. Each point represents the at-tribution scores of a single attention head on two datasets.The datasets of homogeneous tasks are strongly correlated,which implies the same subset of attention heads are \ufb01ne-tuned for similar tasks."
+        ],
+        "correlation": []
+    },
+    "5": {
+        "description": [
+            "Examples of attribution trees. (a) is from MNLI,which is predicted as entailment by BERT. (b) is fromSST-2, which is predicted as positive by BERT. The greywords from the inputs do not appear in the attribution trees.",
+            "the two attributiontrees are from MNLI and SST-2, respectively. The attribu-tion tree Figure 5a is generated from MNLI, whose goldenlabel is entailment. At the bottom of Figure 5a, we \ufb01ndthat the interactions are more local, and most information\ufb02ows are concentrated within a single sentence. The in-formation is hierarchically aggregated to \u201csupplement\u201d and\u201cextra\u201d in each sentence. Then the \u201csupplement\u201d token ag-gregates the information in the \ufb01rst sentence and \u201cadd some-thing extra\u201d in the second sentence, these two parts \u201csupple-ment\u201d and \u201cadd something extra\u201d have strong semantic rele-vance. Finally, all the information \ufb02ows to the terminal token[CLS] to make the prediction entailment. The attribu-tion tree interprets how the input words interacts with each",
+            "is an example from SST-2, whose golden labelis positive, correctly predicted by the model. From Fig-ure 5b, we observe that information in the \ufb01rst part of thesentence \u201cseldom has a movie so closely\u201d is aggregated tothe \u201chas\u201d token. Similarly, information in the other part ofthe sentence \u201cthe spirit of a man and his work\u201d \ufb02ows to the\u201cspirit\u201d token, which has strong positive emotional tenden-cies. Finally, with the feature interactions, all informationaggregates to the verb \u201cmatched\u201d, which gives us a betterunderstanding of why the model makes the speci\ufb01c decision."
+        ],
+        "correlation": []
+    },
+    "6": {
+        "description": [
+            "Distance distribution of interactions extracted bythe attribution tree in each layers.",
+            "we observe that for the paired input ofMNLI, the effective receptive \ufb01eld is relatively local in the\ufb01rst two layers and the 6-8th layers, while are more broad inthe top three layers. For the single input of SST-2, the effec-tive receptive \ufb01eld is monotonically increasing along withthe layer number. Generally, the effective receptive \ufb01eld inthe second layer is more restricted, while the latter layersextract more broad dependencies. Moreover, for pairwise-input tasks (such as MNLI), the results indicate that Trans-former models tend to \ufb01rst conduct local encoding and thenlearn to match between the pair of input sentences, which isdifferent with training from scratch (Bao et al. 2019)."
+        ],
+        "correlation": []
+    },
+    "7": {
+        "description": [
+            "We use ATTATTR to extract the trigger (i.e., high-lighted word patterns) from the MNLI instance that is la-beled as contradict. After adding the adversarial triggerto the examples in other categories, the model predictions\ufb02ip from neutral and entailment to contradict.",
+            "The twopatterns \u201c\ufb02oods-ice\u201d and \u201cIowa-Florida\u201d contribute mostto the prediction contradict in the source sentence.Next we employ them as the trigger to attack other exam-ples, the model predictions \ufb02ip from both neutral andentailment to contradict. Our attack method relieson attribution scores, which utilizes the gradient informa-tion, therefore it belongs to white-box non-targeted attacks.We extract the dependencies with the largest attributionscores as the adversarial triggers from 3,000 input exam-ples. Each trigger contains less than \ufb01ve tokens. The score ofa trigger is de\ufb01ned as the maximum attribution value iden-ti\ufb01ed within it. When attacking the BERT model on SST-2, we use a lexicon1 to blacklist the words with the obvi-ous emotional tendencies (such as \u201cdisgust\u201d for negativetriggers). The adversarial triggers are inserted into the attacktext at the same relative position as in the original sentence."
+        ],
+        "correlation": []
+    }
+}

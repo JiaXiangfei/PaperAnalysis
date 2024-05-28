@@ -1,0 +1,3 @@
+{
+    "Paper Recommend": " 1 :framework provides a method for obtaining environmental information by observing and updating state actions, and some methods allow clues from task completion or post-action obser- vations to help correct action errors. For example, the reflexion\n 2 :Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, and Anima Anandkumar. 2023. Voyager: An open-ended embodied agent with large language models. arXiv preprint arXiv:2305.16291 (2023).\n 3 :Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik R Narasimhan, and Shunyu Yao. 2023. Reflexion: Language agents with verbal reinforcement learning. In Thirty-seventh Conference on Neural Information Processing Systems.\n"
+}

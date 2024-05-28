@@ -1,0 +1,61 @@
+{
+    "7": {
+        "description": [
+            "A real case of using our method to interact with the Booking.com"
+        ],
+        "correlation": []
+    },
+    "8": {
+        "description": [
+            "A real case of using our method to book tickets on Ctrip.com."
+        ],
+        "correlation": []
+    },
+    "1": {
+        "description": [
+            "Comparison of existing LLM agents methods with our method: The top shows LLM\u2019s reasoning and plan, below ishow each method deals with error caused by the Initial plan."
+        ],
+        "correlation": [
+            "To address this problem, we have introduced a Replanning mech-anism for LLM agent, endowing them with human-like cognitiveprocesses and dynamic interactive capabilities using the real-worldscenario of online ticket booking as an example. This mechanismdynamically integrates experience from action feedback and inferstask-relevant implicit information from scattered external knowl-edge bases(Fig. 1B). This enables LLM agent to correct erroneousactions by Reaction based on this information, then re-evaluate andadapt to refine more viable plans, and ultimately derive more gen-eral action strategies. It utilizes three innovative mechanisms(Fig. 2):implicit reasoning, Replanning, and Reaction, making the followingthree major contributions:",
+            "Existing agent methods fail to fully integrate the behaviour ofLarge Language Models (LLMs) into a unified process of reasoningand action. [13] This limitation prevents LLMs from rethinkingbased on global information with implicit information, especiallywhen they encounter errors. They can only correct their actionsbased on error messages about the current state. In attempting torevise their plans, they do not proactively acquire implicit informa-tion that was not previously considered. Instead, they simply iterateand correct errors by putting all action information and feedbackreceived into the LLM\u2019s prompt, thereby falling into the trap of\"local optima\" in task performance. For example(Fig. 1A), in theReact method [42], LLMs progressively receive external feedbackand base their thinking and actions on the current information,thus initiating cycles of feedback, thinking and action. Action inthe current step is based solely on thinking about the feedback forthat step. If a problem arises at an intermediate step, such as thelack of cabin class information in the example, it will continue withthe missing information and get stuck. Voyager [33] and Reflexion[24] are two methods that can partially address these shortcomings.Voyager considers both feedback from the current environment anderror information to reconstruct the current action. Reflexion usesthe entire process of one or more steps as feedback for correction,to some extent taking into account a broader set of information.With these method, agents may infer from the web page in theexample and the previous processes that a cabin class selection is"
+        ]
+    },
+    "2": {
+        "description": [
+            "Implicit reasoning and Replanning using a real-life example of online ticket booking."
+        ],
+        "correlation": [
+            "To address this problem, we have introduced a Replanning mech-anism for LLM agent, endowing them with human-like cognitiveprocesses and dynamic interactive capabilities using the real-worldscenario of online ticket booking as an example. This mechanismdynamically integrates experience from action feedback and inferstask-relevant implicit information from scattered external knowl-edge bases(Fig. 1B). This enables LLM agent to correct erroneousactions by Reaction based on this information, then re-evaluate andadapt to refine more viable plans, and ultimately derive more gen-eral action strategies. It utilizes three innovative mechanisms(Fig. 2):implicit reasoning, Replanning, and Reaction, making the followingthree major contributions:"
+        ]
+    },
+    "3": {
+        "description": [
+            "Steps of Logic path reasoning based on KG and the difference with traditional document retrieval."
+        ],
+        "correlation": [
+            "In our research paradigm, reasoning based on Knowledge Graphs(KG) follows a logical path that involves the following key steps(Fig. 3):"
+        ]
+    },
+    "4": {
+        "description": [
+            "Steps of single action process based on environmental feedback and skills management."
+        ],
+        "correlation": [
+            "is executed up to the stage of determining the origin, destinationand time. The process is as follows(Fig. 4):"
+        ]
+    },
+    "5": {
+        "description": [
+            "Task chain based Replanning and two cases of Reaction: the upper left is the generation process of the task chain; theupper right is Replanning based on task chains and implicit information; the Reaciton on the lower left is used to reuse thecurrent task; the lower right is the Reaciton that reuses similar task chains."
+        ],
+        "correlation": [
+            "2.3 Task chain management2.3.1 Replanning. Although we\u2019ve designed an iterative error-handling process for single actions in Section 2.2, when errorsoccur due to lack of information, it\u2019s essential to introduce newinformation on a global scale to reconstruct the plan. For example,if the original plan did not take into account the selection of aircraftseats, and the task fails after two iterations on the current page, aReplanning mechanism is introduced as follows(Fig. 5):"
+        ]
+    },
+    "6": {
+        "description": [
+            "The reaciton mechanism significantly reduces thenumber of API calls"
+        ],
+        "correlation": []
+    }
+}
