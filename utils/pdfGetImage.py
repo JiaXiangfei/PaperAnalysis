@@ -4,15 +4,18 @@
 # @Author  : ys
 # @File    : pdfGetImage.py
 # @Software: PyCharm
-
+import base64
+import decimal
 
 import win32ui
 import PyPDF2
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTFigure
 from pdf2image import convert_from_path
+from decimal import Decimal
 import os
 import re
+import fitz
 
 from Configration import config
 os.environ["PATH"] += os.pathsep + config["poppler_path"]        #添加poppler临时路径
@@ -27,13 +30,18 @@ def Choose_File(default = "../.."):
 
 def Crop_image_Save(element, pageObj, pagenum, image_num,file = None,keep_temp = False,Save_path = "./"):
     # 获取从PDF中裁剪图像的坐标
-    [image_left, image_top, image_right, image_bottom] = [element.x0, element.y0, element.x1, element.y1]
-    # 使用坐标(left, bottom, right, top)裁剪页面
-    pageObj.mediabox.lower_left = (image_left, image_bottom)
-    pageObj.mediabox.upper_right = (image_right, image_top)
+    ##############################################左下角点坐标、右上角点坐标，以左下角为原点
+    [image_left, image_bottom, image_right, image_top] = [element.x0, element.y0, element.x1, element.y1]
+    #### 使用坐标(left, bottom, right, top)裁剪页面
+    height = pageObj.mediabox.height
+    width = pageObj.mediabox.width
+    ##############################################调整视界范围，下方信息丢失
+    #pageObj.mediabox.lower_left = (image_left, image_bottom)
+    #pageObj.mediabox.upper_right = (image_right, image_top)
     # 将裁剪后的页面保存为新的PDF
-    cropped_pdf_writer = PyPDF2.PdfWriter()
-    cropped_pdf_writer.add_page(pageObj)
+    # cropped_pdf_writer = PyPDF2.PdfWriter()
+    # cropped_pdf_writer.add_page(pageObj)
+
     #创建临时文件夹
     dict = "temp"
     if not os.path.exists(dict):
@@ -47,21 +55,75 @@ def Crop_image_Save(element, pageObj, pagenum, image_num,file = None,keep_temp =
 
         if not os.path.exists(os.path.join(dict, filename)):
             os.makedirs(dict + "/" + filename)
-        cropped_pdf_file_path = f'./temp/{filename}/cropped_image_{pagenum}_{image_num}.pdf'
+        cropped_pdf_file_path = os.path.abspath(f'./temp/{filename}/cropped_image_{pagenum}_{image_num}.pdf')
         if not os.path.exists(Save_path + "/" + filename + "/" + "images"):
             os.makedirs(Save_path + "/" + filename + "/" + "images")
-        output_file = Save_path + "/" + filename + "/" + "images" + "/" + f"page_{pagenum}_image_{image_num}.png"
+        output_file = os.path.abspath(f"{Save_path}/{filename}/images/page_{pagenum}_image_{image_num}.png")
+        #output_file = os.path.abspath(f"{Save_path}/{filename}/images/")
     else:
-        cropped_pdf_file_path = f'./temp/cropped_image_{pagenum}_{image_num}.pdf'
-        output_file = Save_path + "/" + f"page_{pagenum}_image_{image_num}.png"
+        cropped_pdf_file_path = os.path.abspath(f'./temp/cropped_image_{pagenum}_{image_num}.pdf')
+        output_file = os.path.abspath(f"{Save_path}/page_{pagenum}_image_{image_num}.png")
 
     #裁剪
-    with open(cropped_pdf_file_path, 'wb') as cropped_pdf_file:
-        cropped_pdf_writer.write(cropped_pdf_file)
+    # with open(cropped_pdf_file_path, 'wb') as cropped_pdf_file:
+    #     cropped_pdf_writer.write(cropped_pdf_file)
     # 将裁剪后的PDF转换为图像并保存
-    images = convert_from_path(cropped_pdf_file_path)
-    image = images[0]
-    image.save(output_file, "PNG")
+    # images = convert_from_path(cropped_pdf_file_path, poppler_path=os.path.abspath(config["poppler_path"]))
+    # image = images[0]
+    # image.save(output_file, "PNG")
+
+    #print(type(height),type(width),type(image_left),type(image_right),type(image_top),type(image_bottom))
+    if isinstance(height,decimal.Decimal) or isinstance(height,int):
+        height = float(height)
+    if isinstance(width, decimal.Decimal) or isinstance(width,int):
+        width = float(width)
+    #print(type(height), type(width), type(image_left), type(image_right), type(image_top), type(image_bottom))
+
+
+    ################################################左上角原点，右下角坐标系
+    image_rects = fitz.Rect(image_left, height - image_top,image_right,height - image_bottom)
+
+    # 打开PDF文件
+    # 打开PDF文件
+    pdf_document_1 = fitz.open(file)
+    #     # 获取当前页
+    page = pdf_document_1.load_page(pagenum)
+
+    # 从页面中截取图片
+    pix = page.get_pixmap(matrix=fitz.Matrix(1, 1), clip=image_rects)
+    #print(pix.h,pix.w)
+
+    # 保存图片
+    image_path = output_file
+    pix.save(image_path)
+
+    pdf_document_1.close()
+
+    # # 打开PDF文件
+    # pdf_document = fitz.open(file)
+    #
+    # # 遍历PDF中的每一页
+    # for page_number in range(len(pdf_document)):
+    #     # 获取当前页
+    #     page = pdf_document[page_number]
+    #
+    #     # 检索页面上的图像列表
+    #     images = page.get_images(full=True)
+    #
+    #     # 遍历页面上的所有图像
+    #     for image_number, img in enumerate(images):
+    #         # 提取图像的base64字符串
+    #         base64_img = img[5]
+    #
+    #         # 将base64字符串解码为图像数据
+    #         img_data = base64.b64decode(base64_img)
+    #
+    #         # 保存图像
+    #         image_path = output_file
+    #         with open(image_path, 'wb') as f:
+    #             f.write(img_data)
+    #
+    # pdf_document.close()
 
     # 删除临时裁剪的PDF文件与文件夹
     if not keep_temp:
