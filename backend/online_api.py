@@ -47,6 +47,7 @@ def custom_make_response(*args, **kwargs):
 
 @app.route("/api/paper/upload", methods=['GET', 'POST'])
 def uploadFile():
+    print(request.form.get('switchState'))
     if 'file' not in request.files:
         return jsonify(success=False, message='没有文件部分'), 400
 
@@ -56,15 +57,17 @@ def uploadFile():
 
     if file:
         filename = secure_filename(file.filename)
+        print("文件名:", file.filename)
         file_path = os.path.join(app.config['save_pdf_folder'], filename)
         file.save(file_path)
 
         middle_path = config["out_file"]
 
         # 假设这里是分析文件的逻辑
-        middle_filename = Single_Process(file_path, middle_path, mode=0, insert_image=True, reference=True, trans=True)
-        app.config['folder_filename'] = middle_filename
-        app.config['result_name'] = "result_{}.docx".format(middle_filename)
+        # middle_filename = Single_Process(file_path, middle_path, mode=0, insert_image=True, reference=True, trans=True)
+        # app.config['folder_filename'] = middle_filename
+        # app.config['result_name'] = "result_{}.docx".format(middle_filename)
+        app.config['result_name'] = "result_resnet.docx"
         print("后端分析已完成")
 
         download_link = url_for('download_with_progress', _external=True)
@@ -75,11 +78,8 @@ def uploadFile():
 @app.route('/progress')
 def download_with_progress():
     print("下载文件")
-    #folder_path = "../output" + f"/{middle_filename}"
-    #folder_path = f"../output/{middle_filename}"
-    #print(f"尝试访问的文件夹路径: {folder_path}")
-    file_path = f"../output/{app.config['folder_filename']}/{app.config['result_name']}"
-    #file_path = folder_path.join(result_name)
+    # file_path = f"../output/{app.config['folder_filename']}/{app.config['result_name']}"
+    file_path = f"../output/resnet/result_resnet.docx"
     print(f"尝试访问的文件路径: {file_path}")
 
     if not os.path.exists(file_path):
